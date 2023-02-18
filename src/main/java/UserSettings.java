@@ -14,7 +14,7 @@ public class UserSettings extends BaseURL {
                 .spec(getSpec())
                 .body(user)
                 .when()
-                .post(PATH + "register/")
+                .post("https://stellarburgers.nomoreparties.site/register")
                 .then();
     }
 

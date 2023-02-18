@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class TestUser {
     private String email;
+    private String sameEmail;
     private UserSettings userSet;
     private User userNew;
     private UserCheck check;
@@ -29,17 +30,16 @@ public class TestUser {
         ValidatableResponse createResponse = userSet.create(userNew);
         check.userCreated(createResponse);
         accessToken = createResponse.extract().path("accessToken").toString().substring(6).trim();
+        sameEmail = createResponse.extract().path("email").toString().substring(6).trim();
     }
     @Test
-    public void creationSameCourierFailed () {
-        userNew.setEmail("SameLogin@mail.ru");
+    public void creationSameUserFailed () {
         userSet.create(userNew);
+        userNew.setEmail(sameEmail);
         User secondUser = UserGenerator.getRandomUser();
-        secondUser.setEmail("SameLogin@mail.ru");
+        secondUser.setEmail(sameEmail);
         ValidatableResponse createResponse = userSet.create(secondUser);
         check.creationSameUserFailed(createResponse);
-
-        email = userSet.login(UserCredentials.from(userNew)).extract().path("email");
     }
 
     @Test
@@ -66,7 +66,7 @@ public class TestUser {
         userSet.create(userNew);
         email = userSet.login(UserCredentials.from(userNew)).extract().path("email");
         UserCredentials credentials = UserCredentials.from(userNew);
-        credentials.setEmail("Wrong email");
+        credentials.setEmail("null@mail.ru");
         ValidatableResponse loginResponse = userSet.login(credentials);
         check.notLoggedInvalidField(loginResponse);
     }

@@ -1,7 +1,5 @@
 import io.restassured.response.ValidatableResponse;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 public class UserCheck {
 //регистрация
@@ -12,26 +10,23 @@ public class UserCheck {
     //регистрация завалена
     public void creationSameUserFailed(ValidatableResponse response) {
         response.assertThat()
-                .statusCode(403)
                 .body("success", equalTo(false)).and().statusCode(403);
     }
     // успешный логин
     public void loggedIn(ValidatableResponse response) {
         response.assertThat()
-                .statusCode(200)
-                .body("accessToken", notNullValue());
+                .body("success", equalTo(true)).and().statusCode(200);
     }
 //неуспешный логин с пустыми полями
     public void notLoggedRequiredFields(ValidatableResponse response) {
         response.assertThat()
-                .statusCode(401)
-                .body("message", notNullValue());
+                .body("success", equalTo(false)).and().statusCode(401);
     }
     //неуспешный логин с неправильным email
     public void notLoggedInvalidField(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(401)
-                .body("message", notNullValue());
+                .body("success", equalTo(false)).and().statusCode(401);
     }
 }
 
