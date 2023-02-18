@@ -1,27 +1,27 @@
 import static io.restassured.RestAssured.given;
 import io.restassured.response.ValidatableResponse;
+import io.restassured.response.Response;
 import io.qameta.allure.Step;
 
 public class OrderSettings extends BaseURL {
-    private static final String ORDER_PATH = "/api/orders/";
+    private static final String ORDER_PATH = "api/orders/";
 
     @Step("Create order authorized")
-    public ValidatableResponse createOrderAuthorized(String accessToken, Order oder) {
+    public Response createOrderAuthorized(String accessToken, Order order) {
         return given()
                 .header("Authorization", accessToken)
                 .spec(getSpec())
                 .when()
-                .body(oder)
-                .post(ORDER_PATH)
-                .then();
+                .body(order)
+                .post(ORDER_PATH);
     }
 
     @Step("Create order not authorized")
-    public ValidatableResponse createOrderNotAuthorized(Order oder) {
+    public ValidatableResponse createOrderNotAuthorized(Order order) {
         return given()
                 .spec(getSpec())
                 .when()
-                .body(oder)
+                .body(order)
                 .post(ORDER_PATH)
                 .then();
     }

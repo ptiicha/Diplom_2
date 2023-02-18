@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="12" passed="12" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-02-18T17:07:45Z" name="Surefire suite" finished-at="2023-02-18T17:08:01Z" duration-ms="15326">
+    <groups>
+    </groups>
+    <test started-at="2023-02-18T17:07:45Z" name="Surefire test" finished-at="2023-02-18T17:08:01Z" duration-ms="15326">
+      <class name="TestUserLogin">
+        <test-method signature="notLoggedInvalidEmail()" started-at="2023-02-18T17:07:59Z" name="notLoggedInvalidEmail" finished-at="2023-02-18T17:08:00Z" duration-ms="482" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- notLoggedInvalidEmail -->
+        <test-method signature="notLoggedInvalidPassword()" started-at="2023-02-18T17:07:59Z" name="notLoggedInvalidPassword" finished-at="2023-02-18T17:08:00Z" duration-ms="1024" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- notLoggedInvalidPassword -->
+        <test-method signature="loggedIn()" started-at="2023-02-18T17:07:59Z" name="loggedIn" finished-at="2023-02-18T17:08:01Z" duration-ms="1603" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loggedIn -->
+      </class> <!-- TestUserLogin -->
+      <class name="TestOrder">
+        <test-method signature="createOrderNotAuthorized()" started-at="2023-02-18T17:07:46Z" name="createOrderNotAuthorized" finished-at="2023-02-18T17:07:53Z" duration-ms="7858" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createOrderNotAuthorized -->
+        <test-method signature="createOrderAuthorized()" started-at="2023-02-18T17:07:46Z" name="createOrderAuthorized" finished-at="2023-02-18T17:07:55Z" duration-ms="8894" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createOrderAuthorized -->
+        <test-method signature="createOderWithNullIngredient()" started-at="2023-02-18T17:07:46Z" name="createOderWithNullIngredient" finished-at="2023-02-18T17:07:55Z" duration-ms="9633" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createOderWithNullIngredient -->
+      </class> <!-- TestOrder -->
+      <class name="TestUserEditProfile">
+        <test-method signature="userEditLoginNotAuthorized()" started-at="2023-02-18T17:07:55Z" name="userEditLoginNotAuthorized" finished-at="2023-02-18T17:07:56Z" duration-ms="830" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- userEditLoginNotAuthorized -->
+        <test-method signature="userEditNameAuthorized()" started-at="2023-02-18T17:07:55Z" name="userEditNameAuthorized" finished-at="2023-02-18T17:07:58Z" duration-ms="2880" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- userEditNameAuthorized -->
+        <test-method signature="userEditNameNotAuthorized()" started-at="2023-02-18T17:07:55Z" name="userEditNameNotAuthorized" finished-at="2023-02-18T17:07:57Z" duration-ms="2181" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- userEditNameNotAuthorized -->
+        <test-method signature="userEditAuthorized()" started-at="2023-02-18T17:07:55Z" name="userEditAuthorized" finished-at="2023-02-18T17:07:57Z" duration-ms="1536" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- userEditAuthorized -->
+      </class> <!-- TestUserEditProfile -->
+      <class name="TestUserRegistration">
+        <test-method signature="creationSameUserFailed()" started-at="2023-02-18T17:07:58Z" name="creationSameUserFailed" finished-at="2023-02-18T17:07:59Z" duration-ms="498" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- creationSameUserFailed -->
+        <test-method signature="userCreated()" started-at="2023-02-18T17:07:58Z" name="userCreated" finished-at="2023-02-18T17:07:59Z" duration-ms="858" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- userCreated -->
+      </class> <!-- TestUserRegistration -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
