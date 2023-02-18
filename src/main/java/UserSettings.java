@@ -1,46 +1,78 @@
 import io.restassured.response.ValidatableResponse;
 import static io.restassured.RestAssured.given;
+import io.qameta.allure.Step;
+import static org.hamcrest.Matchers.equalTo;
+
 
 public class UserSettings extends BaseURL {
-    private static final String REG = "api/auth/register"; // регистрация
-    private static final String LOG = "api/auth/login"; // авторизация
-    private static final String CHANGE = "api/auth/user"; // изменение данных
+    private static final String PATH = "api/auth";
+    public String accessToken = "";
 
+    //@Step("User create")
     public ValidatableResponse create(User user) {
         return given()
                 .spec(getSpec())
                 .body(user)
                 .when()
-                .post(REG)
+                .post(PATH + "register/")
                 .then();
     }
 
+    //@Step("User logged in")
     public ValidatableResponse login(UserCredentials credentials) {
         return given()
                 .spec(getSpec())
                 .body(credentials)
                 .when()
-                .post(LOG)
+                .post(PATH + "login/")
                 .then();
     }
 
-    public static ValidatableResponse change(String login, String password) {
-        String json = String.format("{\"email\": \"login\", \"password\": \"password\"}", login, password);
+    //@Step("Get user data")
+    public ValidatableResponse getUserData(String accessToken) {
         return given()
+                .header("Authorization", accessToken)
                 .spec(getSpec())
-                .body(json)
                 .when()
-                .patch(CHANGE)
+                .get(PATH + "user")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .and()
+                .body("success", equalTo(true));
+    }
+
+    //@Step("User edit (authorized)")
+    public ValidatableResponse userEditAuthorized(String accessToken, User user) {
+        return given()
+                .header("authorization", "bearer " + accessToken)
+                .spec(getSpec())
+                .body(user)
+                .when()
+                .patch(PATH + "user/")
                 .then();
     }
 
-    public static ValidatableResponse delete(String login) {
-        String json = String.format("{\"id\": \"%d\"}", login);
+    //@Step("User edit (not authorized)")
+    public ValidatableResponse userEditNotAuthorized(User user) {
         return given()
                 .spec(getSpec())
-                .body(json)
+                .body(user)
                 .when()
-                .delete(CHANGE)
+                .patch(PATH + "user/")
                 .then();
+    }
+
+    //@Step("User delete")
+    public ValidatableResponse delete() {
+        if (this.accessToken.equals("")) {
+            return given()
+                    .spec(getSpec())
+                    .auth().oauth2(accessToken)
+                    .delete(PATH + "user/")
+                    .then();
+        }
+        return null;
     }
 }
+

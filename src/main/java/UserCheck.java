@@ -1,24 +1,25 @@
 import io.restassured.response.ValidatableResponse;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class UserCheck {
 //регистрация
     public void userCreated(ValidatableResponse response) {
         response.assertThat()
-                .statusCode(201);
+                .body("success", equalTo(true)).and().statusCode(200);
     }
     //регистрация завалена
     public void creationSameUserFailed(ValidatableResponse response) {
         response.assertThat()
-                .statusCode(409)
-                .body("message", notNullValue());
+                .statusCode(403)
+                .body("success", equalTo(false)).and().statusCode(403);
     }
     // успешный логин
     public void loggedIn(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(200)
-                .body("id", greaterThan(0));
+                .body("accessToken", notNullValue());
     }
 //неуспешный логин с пустыми полями
     public void notLoggedRequiredFields(ValidatableResponse response) {

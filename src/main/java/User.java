@@ -1,42 +1,44 @@
+import org.apache.commons.lang3.RandomStringUtils;
+
 public class User {
-    private String login;
+    private String name;
+    private String email;
     private String password;
-    private String userName;
 
-    public User (String login, String password, String userName) {
-        this.login = login;
-        this.password = password;
-        this.userName = userName;
+    public User() {
+    }
+
+    public User (String name, String email, String password) {
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
 
-    public String getLogin() {
-
-        return login;
+    public String getName() {
+        return name;
     }
-    public void setLogin(String login) {
 
-        this.login = login;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
-
         return password;
     }
+
     public void setPassword(String password) {
-
         this.password = password;
-    }
-
-    public String getUserName() {
-
-        return userName;
-    }
-    public void setUserName(String userName) {
-
-        this.userName = userName;
-    }
-    public User() {
     }
 }
 

@@ -5,35 +5,41 @@ import org.junit.After;
 import org.junit.Test;
 
 public class TestUser {
-    private String userId;
+    private String email;
     private UserSettings userSet;
     private User userNew;
     private UserCheck check;
+    private String accessToken;
 
     @Before
     public void setUp() {
         io.restassured.RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
         check = new UserCheck();
         userSet = new UserSettings();
-        userNew = UserGenerator.getRandom();
+        userNew = UserGenerator.getRandomUser();
+    }
+
+    @After
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(300);
     }
 
     @Test
     public void userCreated() {
         ValidatableResponse createResponse = userSet.create(userNew);
         check.userCreated(createResponse);
-        userId = userSet.login(UserCredentials.from(userNew)).extract().path("id");
+        accessToken = createResponse.extract().path("accessToken").toString().substring(6).trim();
     }
     @Test
     public void creationSameCourierFailed () {
-        userNew.setLogin("SameLogin");
+        userNew.setEmail("SameLogin@mail.ru");
         userSet.create(userNew);
-        User secondUser = UserGenerator.getRandom();
-        secondUser.setLogin("SameLogin");
+        User secondUser = UserGenerator.getRandomUser();
+        secondUser.setEmail("SameLogin@mail.ru");
         ValidatableResponse createResponse = userSet.create(secondUser);
         check.creationSameUserFailed(createResponse);
 
-        userId = userSet.login(UserCredentials.from(userNew)).extract().path("id");
+        email = userSet.login(UserCredentials.from(userNew)).extract().path("email");
     }
 
     @Test
@@ -42,15 +48,15 @@ public class TestUser {
         UserCredentials credentials = UserCredentials.from(userNew);
         ValidatableResponse loginResponse = userSet.login(credentials);
         check.loggedIn(loginResponse);
-        userId = loginResponse.extract().path("id");
+        email = loginResponse.extract().path("email");
     }
 
     @Test
     public void notLoggedRequiredFields () {
         userSet.create(userNew);
-        userId = userSet.login(UserCredentials.from(userNew)).extract().path("id");
+        email = userSet.login(UserCredentials.from(userNew)).extract().path("email");
         UserCredentials credentials = UserCredentials.from(userNew);
-        credentials.setLogin(null);
+        credentials.setEmail(null);
         ValidatableResponse loginResponse = userSet.login(credentials);
         check.notLoggedRequiredFields(loginResponse);
     }
@@ -58,10 +64,15 @@ public class TestUser {
     @Test
     public void notLoggedInvalidField () {
         userSet.create(userNew);
-        userId = userSet.login(UserCredentials.from(userNew)).extract().path("id");
+        email = userSet.login(UserCredentials.from(userNew)).extract().path("email");
         UserCredentials credentials = UserCredentials.from(userNew);
-        credentials.setLogin("Wrong login");
+        credentials.setEmail("Wrong email");
         ValidatableResponse loginResponse = userSet.login(credentials);
         check.notLoggedInvalidField(loginResponse);
+    }
+
+    @After
+    public void deleteUser() {
+        userSet.delete();
     }
 }
