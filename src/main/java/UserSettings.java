@@ -1,24 +1,25 @@
 import io.restassured.response.ValidatableResponse;
+import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import io.qameta.allure.Step;
 import static org.hamcrest.Matchers.equalTo;
 
 
 public class UserSettings extends BaseURL {
-    private static final String PATH = "api/auth";
+    private static final String PATH = "api/auth/";
     public String accessToken = "";
 
-    //@Step("User create")
+    //@Step("Create user") // Success, Failed
     public ValidatableResponse create(User user) {
         return given()
                 .spec(getSpec())
                 .body(user)
                 .when()
-                .post("https://stellarburgers.nomoreparties.site/register")
+                .post(PATH + "register/")
                 .then();
     }
 
-    //@Step("User logged in")
+    //@Step("Login")  // Login success, Login failed wrong password, Login failed wrong email
     public ValidatableResponse login(UserCredentials credentials) {
         return given()
                 .spec(getSpec())
@@ -43,24 +44,22 @@ public class UserSettings extends BaseURL {
     }
 
     //@Step("User edit (authorized)")
-    public ValidatableResponse userEditAuthorized(String accessToken, User user) {
+    public Response userEditAuthorized(String accessToken, User user) {
         return given()
-                .header("authorization", "bearer " + accessToken)
+                .header("authorization", accessToken)
                 .spec(getSpec())
-                .body(user)
                 .when()
-                .patch(PATH + "user/")
-                .then();
+                .body(user)
+                .patch(PATH + "user/");
     }
 
     //@Step("User edit (not authorized)")
-    public ValidatableResponse userEditNotAuthorized(User user) {
+    public Response userEditNotAuthorized(User user) {
         return given()
                 .spec(getSpec())
                 .body(user)
                 .when()
-                .patch(PATH + "user/")
-                .then();
+                .patch(PATH + "user/");
     }
 
     //@Step("User delete")
