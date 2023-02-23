@@ -1,5 +1,6 @@
 import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.Step;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
@@ -21,6 +22,7 @@ public class TestUserRegistration {
     }
 
     @Test
+    @Step("Create user") // Success, Failed
     @DisplayName("Create new user success")
     public void userCreated() {
         userNew = UserGenerator.getRandomUser();

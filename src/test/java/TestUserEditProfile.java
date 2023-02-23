@@ -1,4 +1,5 @@
 import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.response.Response;
 import org.junit.Before;
@@ -28,6 +29,7 @@ public class TestUserEditProfile {
     }
 
     @Test
+    @Step("User edit (authorized)")
     @DisplayName("User edit email (authorized)")
     public void userEditAuthorized() {
         userSet.getUserData(accessToken);
@@ -37,6 +39,7 @@ public class TestUserEditProfile {
     }
 
     @Test
+    @Step("User edit (authorized)")
     @DisplayName("User edit name (authorized)")
     public void userEditNameAuthorized() {
         userSet.getUserData(accessToken);
@@ -46,6 +49,7 @@ public class TestUserEditProfile {
     }
 
     @Test
+    @Step("User edit (not authorized)")
     @DisplayName("User edit name (not authorized)")
     public void userEditNameNotAuthorized() {
         userSet.getUserData(accessToken);
@@ -55,6 +59,7 @@ public class TestUserEditProfile {
     }
 
     @Test
+    @Step("User edit (not authorized)")
     @DisplayName("User edit email (not authorized)")
     public void userEditLoginNotAuthorized() {
         userSet.getUserData(accessToken);

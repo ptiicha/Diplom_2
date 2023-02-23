@@ -9,7 +9,7 @@ public class UserSettings extends BaseURL {
     private static final String PATH = "api/auth/";
     public String accessToken = "";
 
-    //@Step("Create user") // Success, Failed
+    @Step("Create user") // Success, Failed
     public ValidatableResponse create(User user) {
         return given()
                 .spec(getSpec())
@@ -19,7 +19,7 @@ public class UserSettings extends BaseURL {
                 .then();
     }
 
-    //@Step("Login")  // Login success, Login failed wrong password, Login failed wrong email
+    @Step("Login")  // Login success, Login failed wrong password, Login failed wrong email
     public ValidatableResponse login(UserCredentials credentials) {
         return given()
                 .spec(getSpec())
@@ -29,7 +29,7 @@ public class UserSettings extends BaseURL {
                 .then();
     }
 
-    //@Step("Get user data")
+    @Step("Get user data")
     public ValidatableResponse getUserData(String accessToken) {
         return given()
                 .header("Authorization", accessToken)
@@ -43,7 +43,7 @@ public class UserSettings extends BaseURL {
                 .body("success", equalTo(true));
     }
 
-    //@Step("User edit (authorized)")
+    @Step("User edit (authorized)")
     public Response userEditAuthorized(String accessToken, User user) {
         return given()
                 .header("authorization", accessToken)
@@ -53,7 +53,7 @@ public class UserSettings extends BaseURL {
                 .patch(PATH + "user/");
     }
 
-    //@Step("User edit (not authorized)")
+    @Step("User edit (not authorized)")
     public Response userEditNotAuthorized(User user) {
         return given()
                 .spec(getSpec())
@@ -62,7 +62,7 @@ public class UserSettings extends BaseURL {
                 .patch(PATH + "user/");
     }
 
-    //@Step("User delete")
+    @Step("User delete")
     public ValidatableResponse delete() {
         if (this.accessToken.equals("")) {
             return given()

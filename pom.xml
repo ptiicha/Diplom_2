@@ -109,7 +109,7 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
                 <configuration>
-                    <reportVersion>2.15.0</reportVersion>
+                    <reportVersion>2.10.0</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
@@ -121,7 +121,7 @@
         <!-- версия Aspectj -->
         <aspectj.version>1.9.7</aspectj.version>
         <!-- версия Allure -->
-        <allure.version>2.18.0</allure.version>
+        <allure.version>2.10.0</allure.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
