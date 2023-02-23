@@ -33,7 +33,7 @@ public class TestUserEditProfile {
         userSet.getUserData(accessToken);
         userNew.setEmail("asya@mail.list");
         Response changeResponse = userSet.userEditAuthorized(accessToken, new User(userNew.getEmail(), userNew.getName()));
-        changeResponse.then().assertThat().body("success", equalTo(true)).and().statusCode(200);
+        changeResponse.then().assertThat().statusCode(200).and().body("success", equalTo(true));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TestUserEditProfile {
         userSet.getUserData(accessToken);
         userNew.setName("Маша");
         Response response = userSet.userEditAuthorized(accessToken, new User(userNew.getEmail(), userNew.getName()));
-        response.then().assertThat().body("success", equalTo(true)).and().statusCode(200);
+        response.then().assertThat().statusCode(200).and().body("success", equalTo(true));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TestUserEditProfile {
         userSet.getUserData(accessToken);
         userNew.setName("Маша");
         Response response = userSet.userEditNotAuthorized(new User(userNew.getEmail(), userNew.getName()));
-        response.then().assertThat().body("success", equalTo(false)).and().statusCode(401);
+        response.then().assertThat().statusCode(401).body("success", equalTo(false)).and();
     }
 
     @Test
@@ -60,6 +60,6 @@ public class TestUserEditProfile {
         userSet.getUserData(accessToken);
         userNew.setEmail("nastya@mail.ru");
         Response response = userSet.userEditNotAuthorized(new User(userNew.getEmail(), userNew.getName()));
-        response.then().assertThat().body("success", equalTo(false)).and().statusCode(401);
+        response.then().assertThat().statusCode(401).and().body("success", equalTo(false));
     }
 }
