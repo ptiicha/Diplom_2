@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 12, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 19.24 s <<< FAILURE! - in TestSuite
+userEditNameAuthorized on userEditNameAuthorized(TestUserEditProfile)(TestUserEditProfile)  Time elapsed: 15.173 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Expected status code <200> but was <403>.
+
+	at TestUserEditProfile.userEditNameAuthorized(TestUserEditProfile.java:48)
+
